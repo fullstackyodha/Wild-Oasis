@@ -7,12 +7,14 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { Button } from "../../ui/Button";
 import { useForm } from "react-hook-form";
-import { createEditCabin } from "../../services/apiCabins";
 
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({
+	cabinToEdit = {},
+	onCloseModal,
+}) {
 	// Cabin Data to be edited
 	const { id: editId, ...editValues } = cabinToEdit;
 
@@ -23,7 +25,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 		register,
 		handleSubmit,
 		reset,
-		getValues,
+		getValues, // gets the form field values
 		formState,
 	} = useForm({
 		// IF IS EDIT SESSION THEN SET DEFAULT VALUES
@@ -59,14 +61,24 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 					newCabinData: { ...data, image },
 					id: editId,
 				},
-				{ onSuccess: () => reset() }
+				{
+					onSuccess: () => {
+						reset();
+						onCloseModal?.(false);
+					},
+				}
 			);
 		} else {
 			// CREATE CABIN WITH DATA & IMAGE
 			createCabin(
 				{ ...data, image },
 				// RESETS THE FORM
-				{ onSuccess: () => reset() }
+				{
+					onSuccess: (data) => {
+						reset();
+						onCloseModal?.(false);
+					},
+				}
 				// GETS ACCESS TO CREATED DATA BY MUTATION FUCTION
 				// { onSuccess: (data) => { console.log(data); reset()} }
 			);
@@ -79,7 +91,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 	}
 
 	return (
-		<Form onSubmit={handleSubmit(onSubmit, onError)}>
+		<Form
+			onSubmit={handleSubmit(onSubmit, onError)}
+			// Checks if form is open in Modal or not
+			type={onCloseModal ? "modal" : "regular"}>
 			{/* FORMROW COMPONENT PASSED WITH PROPS*/}
 			<FormRow
 				label="Cabin name"
@@ -138,7 +153,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 				<Input
 					type="number"
 					id="discount"
-					defaultValue={0}
+					// defaultValue={0}
 					disabled={isWorking}
 					{...register("discount", {
 						required: "This field is required",
@@ -180,7 +195,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
 			<FormRow>
 				{/* type is an HTML attribute! */}
-				<Button variations="secondary" type="reset">
+				<Button
+					variations="secondary"
+					onClick={() => onCloseModal?.("")}
+					type="reset">
 					Cancel
 				</Button>
 				<Button disabled={isWorking}>

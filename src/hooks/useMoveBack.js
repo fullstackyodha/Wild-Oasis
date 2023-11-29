@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export function useMoveBack() {
-  const navigate = useNavigate();
-  return () => navigate(-1);
+	// Returns an imperative method for changing the location
+	const navigate = useNavigate();
+	return () => navigate(-1);
 }

@@ -15,20 +15,18 @@ import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { redirect } from "react-router-dom";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
 
-// const TableRow = styled.div`
-// 	display: grid;
-// 	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-// 	column-gap: 2.4rem;
-// 	align-items: center;
-// 	padding: 1.4rem 2.4rem;
+const TableRow = styled.div`
+	display: grid;
+	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
+	column-gap: 2.4rem;
+	align-items: center;
+	padding: 1.4rem 2.4rem;
 
-// 	&:not(:last-child) {
-// 		border-bottom: 1px solid var(--color-grey-100);
-// 	}
-// `;
+	&:not(:last-child) {
+		border-bottom: 1px solid var(--color-grey-100);
+	}
+`;
 
 const Img = styled.img`
 	display: block;
@@ -99,7 +97,7 @@ function CabinRow({ cabin }) {
 
 	return (
 		<>
-			<Table.Row columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+			<TableRow role="row">
 				<Img src={image} />
 				<Cabin>{name}</Cabin>
 				<div>Fits upto {maxCapacity} guests</div>
@@ -111,18 +109,17 @@ function CabinRow({ cabin }) {
 				)}
 				<div>
 					{/* DUPLICATE */}
-					{/* <button
+					<button
 						disabled={isWorking}
 						onClick={handleDuplicate}>
 						<HiSquare2Stack />
-					</button> */}
+					</button>
 
-					{/* MODAL */}
-					{/* <Modal> */}
-					{/* EDIT */}
-					{/* <Modal.Open opens="edit-form"> */}
-					{/* V1 */}
-					{/* <button
+					<Modal>
+						{/* EDIT */}
+						<Modal.Open opens="edit-form">
+							{/* V1 */}
+							{/* <button
 								disabled={isWorking}
 								onClick={() =>
 									setShowForm((showForm) => !showForm)
@@ -130,84 +127,40 @@ function CabinRow({ cabin }) {
 								<HiPencil />
 							</button> */}
 
-					{/* V2 */}
-					{/* <button disabled={isWorking}>
+							{/* V2 */}
+							<button disabled={isWorking}>
 								<HiPencil />
-							</button> */}
-					{/* </Modal.Open>
+							</button>
+						</Modal.Open>
 						<Modal.Window name="edit-form">
 							<CreateCabinForm cabinToEdit={cabin} />
-						</Modal.Window> */}
+						</Modal.Window>
 
-					{/* DELETE */}
-					{/* <Modal.Open opens="delete"> */}
-					{/* V1 */}
-					{/* <button
+						{/* DELETE */}
+						<Modal.Open opens="delete">
+							{/* V1 */}
+							{/* <button
 								disabled={isWorking}
 								onClick={() => deleteCabin(cabinId)}>
 								<HiTrash />
 							</button> */}
 
-					{/* V2 */}
-					{/* <button>
+							{/* V2 */}
+							<button>
 								<HiTrash />
 							</button>
-						</Modal.Open> */}
+						</Modal.Open>
 
-					{/* <Modal.Window name="delete">
+						<Modal.Window name="delete">
 							<ConfirmDelete
 								resourceName="Cabin"
 								onConfirm={() => deleteCabin(cabinId)}
 								disabled={isDeleting}
 							/>
-						</Modal.Window> */}
-					{/* </Modal> */}
-
-					{/* CONTEXT MENU */}
-					<Modal>
-						<Menus.Menu>
-							<Menus.Toggle id={cabinId} />
-
-							<Menus.List id={cabinId}>
-								{/* DUPLICATE */}
-								<Menus.Button
-									icon={<HiSquare2Stack />}
-									onClick={handleDuplicate}>
-									Duplicate
-								</Menus.Button>
-
-								{/* EDIT */}
-								<Modal.Open opens="edit-form">
-									<Menus.Button icon={<HiPencil />}>
-										Edit
-									</Menus.Button>
-								</Modal.Open>
-
-								{/* DELETE */}
-								<Modal.Open opens="delete">
-									<Menus.Button icon={<HiTrash />}>
-										Delete
-									</Menus.Button>
-								</Modal.Open>
-							</Menus.List>
-
-							{/* EDIT MODAL WINDOW */}
-							<Modal.Window name="edit-form">
-								<CreateCabinForm cabinToEdit={cabin} />
-							</Modal.Window>
-
-							{/* DELETE MODAL WINDOW */}
-							<Modal.Window name="delete">
-								<ConfirmDelete
-									resourceName="Cabin"
-									onConfirm={() => deleteCabin(cabinId)}
-									disabled={isDeleting}
-								/>
-							</Modal.Window>
-						</Menus.Menu>
+						</Modal.Window>
 					</Modal>
 				</div>
-			</Table.Row>
+			</TableRow>
 
 			{/* PASSING THE CABIN DATA AS THE PROP TO CREATE CABIN COMPONENT FOR EDITING*/}
 			{/* {showForm && <CreateCabinForm cabinToEdit={cabin} />} */}

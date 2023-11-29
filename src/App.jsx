@@ -42,25 +42,32 @@ function App() {
 									<Navigate replace to="dashboard" />
 								}
 							/>
+
 							{/* Declares an element that should be rendered at a certain URL path. */}
 							<Route
 								path="dashboard"
 								element={<Dashboard />}
 							/>
+
 							<Route
 								path="bookings"
 								element={<Bookings />}
 							/>
+
 							<Route path="cabins" element={<Cabins />} />
+
 							<Route path="users" element={<Users />} />
+
 							<Route
 								path="settings"
 								element={<Settings />}
 							/>
+
 							<Route path="account" element={<Account />} />
 						</Route>
 
 						<Route path="login" element={<Login />} />
+
 						<Route path="*" element={<PageNotFound />} />
 					</Routes>
 				</BrowserRouter>

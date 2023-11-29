@@ -51,9 +51,11 @@ export async function createEditCabin(newCabin, id) {
 		throw new Error("ERROR CREATING CABINS");
 	}
 
-	// UPLOAD IMAGE
+	// IF CABIN ALREADY HAS IMAGE PATH NO NEED TO REUPLOAD THE IMAGE
+	// WE RETURN THE DATA FROM HERE
 	if (hasImagePath) return data;
 
+	// UPLOAD IMAGE LOGIC
 	// https://nfkwtcbqtysabrfszmdq.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
 	const { error: storageError } = await supabase.storage
 		.from("cabin-images")
@@ -66,6 +68,7 @@ export async function createEditCabin(newCabin, id) {
 			.eq("id", data.id);
 
 		console.error(storageError);
+
 		throw new Error(
 			"ERROR UPLOADING CABIN IMAGE & CREATING THE CABIN"
 		);

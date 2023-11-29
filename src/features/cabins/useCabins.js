@@ -7,6 +7,7 @@ export const useCabins = () => {
 		data: cabins,
 		error,
 	} = useQuery({
+		// UNIQUELY IDENTIFIES IN THE CACHE
 		queryKey: ["cabins"],
 		queryFn: getCabins,
 	});
