@@ -67,32 +67,67 @@ const PaginationButton = styled.button`
 	}
 `;
 
+export const PAGE_SIZE = 10;
+
 function Pagination({ count }) {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	let currentPage = +searchParams.get("page") || 1;
-	console.log(currentPage);
+	// console.log(currentPage);
 
-	function prevPage() {}
+	const pageCount = Math.ceil(count / PAGE_SIZE);
 
-	function nextPage() {}
+	function prevPage() {
+		const prev = currentPage === 1 ? 1 : currentPage - 1;
+
+		searchParams.set("page", prev);
+		setSearchParams(searchParams);
+	}
+
+	function nextPage() {
+		const next =
+			currentPage === pageCount
+				? currentPage
+				: currentPage + 1;
+
+		searchParams.set("page", next);
+		setSearchParams(searchParams);
+	}
+
+	if (count <= 10) return null;
 
 	return (
 		<StyledPagination>
 			<P>
-				Showing <span>1</span> to <span>10</span> of
+				Showing
+				<span>
+					{" "}
+					{(currentPage - 1) * PAGE_SIZE + 1}
+				</span> to{" "}
+				<span>
+					{currentPage === pageCount
+						? count
+						: currentPage * PAGE_SIZE}
+				</span>{" "}
+				of
 				<span> {count}</span> results
 			</P>
 
 			<Buttons>
 				{/* PREVIOUS PAGE */}
-				<PaginationButton onClick={prevPage}>
+				<PaginationButton
+					onClick={prevPage}
+					// DISABLE WHEN START PAGE
+					disabled={currentPage === 1}>
 					<HiChevronLeft />
 					<span>Previous</span>
 				</PaginationButton>
 
 				{/* NEXT PAGE */}
-				<PaginationButton onClick={nextPage}>
+				<PaginationButton
+					onClick={nextPage}
+					// DISABLE WHEN LAST PAGE
+					disabled={currentPage === pageCount}>
 					<span>Next</span>
 					<HiChevronRight />
 				</PaginationButton>
