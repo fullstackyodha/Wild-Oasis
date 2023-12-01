@@ -16,6 +16,7 @@ function BookingTable() {
 
 	return (
 		<Menus>
+			<Pagination count={count} />
 			<Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
 				<Table.Header>
 					<div>Cabin</div>
