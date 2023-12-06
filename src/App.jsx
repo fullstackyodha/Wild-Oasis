@@ -20,6 +20,8 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import { Toaster } from "react-hot-toast";
+import Booking from "./pages/Booking";
+import Checkin from "./pages/Checkin";
 
 // REACT QUERY CLIENT
 const queryClient = new QueryClient({
@@ -32,6 +34,7 @@ function App() {
 			{/* REACT QUERY CLIENT PROVIDER */}
 			<QueryClientProvider client={queryClient}>
 				<ReactQueryDevtools initialIsOpen={false} />;
+				{/* REACT ROUTER */}
 				<BrowserRouter>
 					<Routes>
 						<Route element={<AppLayout />}>
@@ -54,7 +57,17 @@ function App() {
 								element={<Bookings />}
 							/>
 
+							<Route
+								path="bookings/:bookingId"
+								element={<Booking />}
+							/>
+
 							<Route path="cabins" element={<Cabins />} />
+
+							<Route
+								path="checkin/:bookingId"
+								element={<Checkin />}
+							/>
 
 							<Route path="users" element={<Users />} />
 

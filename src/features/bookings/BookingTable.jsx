@@ -16,6 +16,7 @@ function BookingTable() {
 
 	return (
 		<Menus>
+			{/* PAGINATION */}
 			<Pagination count={count} />
 			<Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
 				<Table.Header>
@@ -29,6 +30,7 @@ function BookingTable() {
 
 				<Table.Body
 					data={bookings}
+					// RENDER PROP PATTERNS
 					render={(booking) => (
 						<BookingRow
 							key={booking.id}

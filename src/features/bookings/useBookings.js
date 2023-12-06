@@ -13,7 +13,7 @@ export const useBookings = () => {
 
 	const [searchParams] = useSearchParams();
 
-	// 1. FILTER
+	// 1. FILTER --------------------------------------
 	const filterValue = searchParams.get("status");
 
 	const filter =
@@ -21,7 +21,7 @@ export const useBookings = () => {
 			? null
 			: { field: "status", value: filterValue };
 
-	// 2. SORT BY
+	// 2. SORT BY --------------------------------------
 	const sortByRaw =
 		searchParams.get("sortBy") || "startDate-desc";
 
@@ -29,10 +29,10 @@ export const useBookings = () => {
 
 	const sortBy = { field, direction };
 
-	// 3. PAGINATION
+	// 3. PAGINATION --------------------------------------
 	const page = +searchParams.get("page") || 1;
 
-	// QUERY
+	// QUERY --------------------------------------
 	const {
 		isLoading,
 		data: { data: bookings, count } = {},

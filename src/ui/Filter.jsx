@@ -9,6 +9,7 @@ const StyledFilter = styled.div`
 	box-shadow: var(--shadow-sm);
 	border-radius: var(--border-radius-sm);
 	padding: 0.4rem;
+
 	display: flex;
 	gap: 0.4rem;
 `;
@@ -45,8 +46,14 @@ function Filter({ filterField, options }) {
 		searchParams.get(filterField) || options[0].value;
 
 	function handleclick(value) {
-		// Set Parameter and its value
+		// Set Parameter and its value in URL
 		searchParams.set(filterField, value);
+
+		// RESET PAGE TO FIRST PAGE WHEN NEW OPTION IS CHOOSEN
+		if (searchParams.get("page")) {
+			searchParams.set("page", 1);
+		}
+
 		setSearchParams(searchParams);
 	}
 

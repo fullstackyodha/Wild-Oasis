@@ -53,6 +53,7 @@ function CabinTable() {
 	if (cabins.length === 0)
 		return <Empty resourceName="Cabins" />;
 
+	// CLIENT SIDE FILTERING & SORTING
 	// 1. FILTER
 	const filterValue = searchParams.get("discount") || "all";
 	// console.log(filterValue);
@@ -100,7 +101,7 @@ function CabinTable() {
 				</Table.Header>
 				<Table.Body
 					data={sortedCabins}
-					// RENDER PROP
+					// RENDER PROP PATTERNS
 					render={(cabin) => (
 						<CabinRow cabin={cabin} key={cabin.id} />
 					)}

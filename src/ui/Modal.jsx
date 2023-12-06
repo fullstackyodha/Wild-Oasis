@@ -99,6 +99,7 @@ function Window({ children, name }) {
 
 	const { ref } = useOutsideClick(close);
 
+	// IF NAME ARE NOT SAME RETURN NULL
 	if (name !== openName) return null;
 
 	return createPortal(
